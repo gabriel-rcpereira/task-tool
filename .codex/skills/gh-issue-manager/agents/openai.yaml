@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Issue Manager"
+  short_description: "Create and manage GitHub issues"
+  default_prompt: "Use $gh-issue-manager to create, triage, track, and improve GitHub issues for this repository."
