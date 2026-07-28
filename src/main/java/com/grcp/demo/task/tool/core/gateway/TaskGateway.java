@@ -1,8 +1,9 @@
 package com.grcp.demo.task.tool.core.gateway;
 
 import com.grcp.demo.task.tool.core.model.Task;
+import com.grcp.demo.task.tool.core.model.TaskPage;
+import com.grcp.demo.task.tool.core.model.TaskStatus;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface TaskGateway {
@@ -13,7 +14,7 @@ public interface TaskGateway {
 
     Optional<Task> findById(Long id);
 
-    List<Task> findAll();
+    TaskPage findAll(int page, int size, TaskStatus status);
 
     void delete(Long id);
 }

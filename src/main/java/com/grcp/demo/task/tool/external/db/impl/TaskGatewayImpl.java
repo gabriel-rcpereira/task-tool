@@ -2,23 +2,25 @@ package com.grcp.demo.task.tool.external.db.impl;
 
 import com.grcp.demo.task.tool.core.gateway.TaskGateway;
 import com.grcp.demo.task.tool.core.model.Task;
+import com.grcp.demo.task.tool.core.model.TaskPage;
 import com.grcp.demo.task.tool.core.model.TaskStatus;
 import com.grcp.demo.task.tool.external.db.entity.TaskEntity;
 import com.grcp.demo.task.tool.external.db.repository.TaskRepository;
 import io.hypersistence.tsid.TSID;
-import org.jspecify.annotations.NonNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 @Component
 public class TaskGatewayImpl implements TaskGateway {
+
+    private static final Sort TASK_LIST_SORT = Sort.by(
+            Sort.Order.desc("createdAt"),
+            Sort.Order.desc("id"));
 
     private final TaskRepository taskRepository;
 
@@ -59,10 +61,20 @@ public class TaskGatewayImpl implements TaskGateway {
     }
 
     @Override
-    public List<Task> findAll() {
-        return StreamSupport.stream(taskRepository.findAll().spliterator(), false)
-                .map(TaskGatewayImpl::toTask)
-                .toList();
+    public TaskPage findAll(int page, int size, TaskStatus status) {
+        Pageable pageable = PageRequest.of(page, size, TASK_LIST_SORT);
+        Page<TaskEntity> taskPage = status == null
+                ? taskRepository.findAll(pageable)
+                : taskRepository.findByStatus(status.name(), pageable);
+
+        return new TaskPage(
+                taskPage.getContent().stream()
+                        .map(TaskGatewayImpl::toTask)
+                        .toList(),
+                taskPage.getNumber(),
+                taskPage.getSize(),
+                taskPage.getTotalElements(),
+                taskPage.getTotalPages());
     }
 
     @Override

@@ -1,1 +1,1 @@
-create schema task_tool;
+create schema if not exists task_tool;

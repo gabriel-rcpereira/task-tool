@@ -4,11 +4,11 @@ import com.grcp.demo.task.tool.core.exception.ErrorCode;
 import com.grcp.demo.task.tool.core.exception.NotFoundException;
 import com.grcp.demo.task.tool.core.gateway.TaskGateway;
 import com.grcp.demo.task.tool.core.model.Task;
+import com.grcp.demo.task.tool.core.model.TaskPage;
 import com.grcp.demo.task.tool.core.model.TaskStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 public class TaskService {
@@ -23,8 +23,8 @@ public class TaskService {
         return taskGateway.create(Task.aNew(description, dueDateAt));
     }
 
-    public List<Task> findAllTasks() {
-        return taskGateway.findAll();
+    public TaskPage findTasks(int page, int size, TaskStatus status) {
+        return taskGateway.findAll(page, size, status);
     }
 
     public void updateTaskStatus(Long id, TaskStatus status) {
