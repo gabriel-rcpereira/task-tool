@@ -20,6 +20,7 @@ This project exposes a simple task management API with a Clean Architecture appr
 - PostgreSQL
 - Liquibase
 - Springdoc OpenAPI with Swagger UI
+- JaCoCo coverage reporting
 - Docker Compose for local PostgreSQL
 - Actuator
 
@@ -107,6 +108,21 @@ Run the automated tests with:
 ./gradlew test
 ```
 
+This also generates JaCoCo coverage reports for the current test suite.
+
+Generate coverage reports explicitly with:
+
+```bash
+./gradlew jacocoTestReport
+```
+
+Coverage outputs:
+
+- HTML report: `build/reports/jacoco/test/html/index.html`
+- XML report: `build/reports/jacoco/test/jacocoTestReport.xml`
+
+The XML report is suitable for CI tooling and coverage upload steps.
+
 ## API Notes
 
 The task listing endpoint supports pagination and optional status filtering:
@@ -134,3 +150,4 @@ The repository includes Postman assets for manual API testing:
 
 - No authentication or authorization
 - The API is focused on basic CRUD operations for tasks
+- Coverage thresholds are not enforced yet
