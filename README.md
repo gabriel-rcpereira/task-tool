@@ -1,6 +1,6 @@
 # Task Tool
 
-`task-tool` is a Spring Boot REST API for managing tasks. It supports task creation, listing, lookup by id, status updates, and deletion. The application now uses PostgreSQL for normal operation, with local infrastructure provided through Docker Compose and schema changes managed by Liquibase.
+`task-tool` is a Spring Boot REST API for managing tasks. It supports task creation, listing, lookup by id, status updates, deletion, and generated OpenAPI documentation. The application now uses PostgreSQL for normal operation, with local infrastructure provided through Docker Compose and schema changes managed by Liquibase.
 
 ## Overview
 
@@ -19,6 +19,7 @@ This project exposes a simple task management API with a Clean Architecture appr
 - Spring Data JPA
 - PostgreSQL
 - Liquibase
+- Springdoc OpenAPI with Swagger UI
 - Docker Compose for local PostgreSQL
 - Actuator
 
@@ -113,6 +114,15 @@ The task listing endpoint supports pagination and optional status filtering:
 - `GET /api/v1/tasks?page=0&size=20`
 - `GET /api/v1/tasks?status=TODO`
 
+## API Documentation
+
+With application running locally, generated API docs are available at:
+
+- OpenAPI JSON: `http://localhost:8080/v3/api-docs`
+- Swagger UI: `http://localhost:8080/swagger-ui.html`
+
+Swagger UI complements the existing Postman collection. Use it for quick contract discovery and interactive local requests.
+
 ## Postman
 
 The repository includes Postman assets for manual API testing:
@@ -124,4 +134,3 @@ The repository includes Postman assets for manual API testing:
 
 - No authentication or authorization
 - The API is focused on basic CRUD operations for tasks
-- OpenAPI/Swagger documentation is not implemented yet
