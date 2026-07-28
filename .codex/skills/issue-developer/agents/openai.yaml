@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue Developer"
+  short_description: "Implement issues with TDD discipline"
+  default_prompt: "Use $issue-developer to implement a GitHub issue with clarification-first scope control and a TDD workflow."
