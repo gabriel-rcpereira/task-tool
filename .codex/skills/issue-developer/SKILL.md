@@ -1,6 +1,6 @@
 ---
 name: issue-developer
-description: Implement GitHub issues with strong scope control and test-first discipline. Use when Codex receives an issue or issue-like task and needs to understand the project, clarify ambiguous requirements, avoid assumptions, implement through small TDD iterations, keep README and Postman assets aligned when needed, defer integration tests until the end, and escalate newly discovered follow-up work to $gh-issue-manager for documentation and issue creation.
+description: Implement GitHub issues with strong scope control and test-first discipline. Use when Codex receives an issue or issue-like task and needs to understand the project, clarify ambiguous requirements, avoid assumptions, implement through small TDD iterations, keep README and Postman assets aligned when needed, defer integration tests until the end, require approval from $code-reviewer before considering the work finished, and escalate newly discovered follow-up work to $gh-issue-manager for documentation and issue creation.
 ---
 
 # Issue Developer
@@ -17,6 +17,8 @@ Treat an issue as a bounded engineering contract. Understand the requested outco
 - Leave integration-style tests for the end unless the user explicitly asks for a different order.
 - Check whether README updates are required whenever the user-facing contract, setup flow, or operational behavior changes.
 - Check whether Postman assets should be updated whenever API requests, parameters, paths, or response expectations change.
+- Request a `$code-reviewer` pass before treating the issue as complete.
+- If review feedback arrives, address remarks that make sense and discuss questionable remarks with `$code-reviewer` instead of ignoring them.
 - If new work is discovered that should not be folded into the current task, ask `$gh-issue-manager` to document it and create or update the relevant GitHub issue.
 
 ## Workflow
@@ -127,6 +129,9 @@ Before declaring the issue done:
 - confirm unit tests cover the main behavior changes
 - confirm integration tests were added or updated at the end when appropriate
 - confirm README and Postman were reviewed and updated if necessary
+- request review approval from `$code-reviewer`
+- address valid review findings or discuss disputed findings with `$code-reviewer`
+- escalate unresolved reviewer-developer disagreement to the user
 - note any residual risks or follow-up items
 - distinguish what was verified from what remains assumed
 
@@ -149,7 +154,19 @@ If you find a legitimate new issue while implementing:
 3. create or update the GitHub issue before forgetting the context, when repository permissions allow
 4. continue only on the original issue unless the user redirects scope
 
-Read [references/handoff-patterns.md](references/handoff-patterns.md) when you need wording for clarification requests, iteration checkpoints, or follow-up issue escalation.
+## Review Gate
+
+Before considering implementation finished:
+
+1. ask `$code-reviewer` to review the work against the issue and definition of done
+2. evaluate each review remark against the issue scope, acceptance criteria, and verified behavior
+3. fix remarks that are valid and in scope
+4. if a remark seems incorrect or debatable, discuss it with `$code-reviewer`
+5. if disagreement remains after discussion, ask the user to decide
+
+Do not close out the task without this review gate unless the user explicitly skips it.
+
+Read [references/handoff-patterns.md](references/handoff-patterns.md) when you need wording for clarification requests, iteration checkpoints, review handoff, or follow-up issue escalation.
 
 ## Deliverable Shapes
 
@@ -159,5 +176,6 @@ Typical outputs from this skill:
 - a small-chunk implementation plan tied to the issue
 - unit-test-first iterations with explicit checkpoints
 - integration tests added near the end
+- review handoff to `$code-reviewer` before completion
 - concise summary of completed work, tests run, README/Postman updates, and remaining risks
 - handoff to `$gh-issue-manager` for discovered follow-up issues

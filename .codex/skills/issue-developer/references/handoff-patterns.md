@@ -53,6 +53,34 @@ Integration checkpoint:
 - Broader verification: <tests run>
 ```
 
+## Review Handoff Pattern
+
+Use before considering the issue complete:
+
+```md
+Review handoff:
+- Issue: <issue number or scope>
+- Completed slices: <list>
+- Unit test verification: <tests>
+- Integration verification: <tests>
+- README updated: <yes/no>
+- Postman updated: <yes/no>
+
+Please review this against the issue scope and definition of done.
+```
+
+## Review Resolution Pattern
+
+Use when handling review feedback:
+
+```md
+Review resolution:
+- Remark: <review feedback>
+- Assessment: <valid/disputed>
+- Reasoning: <why it is valid or why it conflicts with the issue/evidence>
+- Action: <fix applied/discussed with reviewer/escalated to user>
+```
+
 ## Follow-up Issue Escalation Pattern
 
 Use when a new problem is discovered that should not be folded into the current issue:
@@ -78,6 +106,8 @@ Issue completion check:
 - Tests run: <list>
 - README updated: <yes/no>
 - Postman updated: <yes/no>
+- Code review approved: <yes/no>
+- Review disagreements escalated: <yes/no>
 - Residual risks: <if any>
 - Follow-up issues created: <issue numbers or none>
 ```
